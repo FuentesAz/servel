@@ -1,0 +1,30 @@
+---
+import Image from "astro/components/Image.astro";
+import banner from "../assets/banner.png";
+---
+
+<section class="relative w-full h-[90vh]">
+    <Image
+        class="absolute h-full w-full inset-0"
+        src={banner}
+        alt="Baner optimizado"
+    />
+    <div class="absolute inset-0 bg-black/60 h-full"></div>
+
+    <div class="relative top-1/4 px-80">
+        <h1 class="text-center text-white text-4xl font-bold">
+            DONDE LOS PROBLEMAS TECNOLÓGICOS LLEGAN A SU FIN.
+        </h1>
+        <p class="text-stone-500 text-center text-2xl font-bold my-10 px-25">
+            TECNOLOGíA, SEGURIDAD Y SOPORTE PARA PERSONAS Y EMPRESAS.
+        </p>
+    </div>
+    <div class="relative text-center top-3/10">
+        <button class="bg-red-700 text-white rounded-sm px-[49px] py-2 text-md mx-4"
+            >COTIZAR AHORA</button
+        >
+        <button class="border-2 border-white text-white rounded-sm px-[30px] py-2 text-md"
+            >NUESTROS SERVICIOS</button
+        >
+    </div>
+</section>
