@@ -1,30 +1,48 @@
 ---
-import Image from "astro/components/Image.astro";
-import banner from "../assets/banner.png";
+import {Image} from "astro:assets";
+import banner from "../assets/Banner.webp";
+import bannerMobile from "../assets/Banner-mobile.webp";
+import Button from "./Button.astro";
 ---
 
-<section class="relative w-full h-[90vh]">
-    <Image
-        class="absolute h-full w-full inset-0"
-        src={banner}
-        alt="Baner optimizado"
-    />
-    <div class="absolute inset-0 bg-black/60 h-full"></div>
+<section
+    class="relative w-full h-[80vh] lg:h-[90vh] flex flex-col items-center justify-center overflow-hidden"
+>
+    <picture>
+        <!-- Mobile -->
 
-    <div class="relative top-1/4 max-w-3xl mx-auto px-6">
-        <h1 class="text-center text-white text-4xl font-bold">
-            DONDE LOS PROBLEMAS TECNOLÓGICOS LLEGAN A SU FIN.
+        <source media="(max-width: 768px)" srcset={bannerMobile.src} />
+
+        <!-- Desktop -->
+        <source media="(min-width: 769px)" srcset={banner.src} />
+
+        <Image
+            class="absolute size-full inset-0 object-cover -z-20"
+            src={banner}
+            alt="Baner optimizado"
+            loading="eager"
+        />
+        
+    </picture>
+    <div class="absolute inset-0 bg-black/60 h-full -z-10"></div>
+
+    <div
+        class="relative max-w-sm xl:max-w-6xl md:max-w-3xl sm:max-w-m text-center"
+    >
+        <h1
+            class="text-white xl:text-6xl font-bold md:text-4xl text-xl uppercase tracking-tight xl:my-10"
+        >
+            Soluciones tecnológicas claras, seguras y sin complicaciones.
         </h1>
-        <p class="text-stone-500 text-center text-2xl font-bold my-10 px-25">
-            TECNOLOGíA, SEGURIDAD Y SOPORTE PARA PERSONAS Y EMPRESAS.
+        <p
+            class="text-zinc-300 text-center xl:text-4xl md:text-2xl text-md font-bold py-5"
+        >
+            CCTV, redes, soporte técnico y soluciones digitales para hogares y
+            negocios
         </p>
     </div>
-    <div class="relative text-center top-3/10">
-        <button class="bg-red-700 text-white rounded-sm px-10 py-2 text-md mx-4"
-            >COTIZAR AHORA</button
-        >
-        <button class="border-2 border-white text-white rounded-sm px-5 py-2 text-md"
-            >NUESTROS SERVICIOS</button
-        >
+    <div class="mt-5 flex flex-col md:flex-row justify-center gap-4 xl:my-10">
+        <Button title="Cuéntanos tu problema" href="#" variant="primary" />
+        <Button title="Ver servicios" href="#" variant="secondary" />
     </div>
 </section>
