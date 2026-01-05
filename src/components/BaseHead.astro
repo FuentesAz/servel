@@ -11,6 +11,8 @@ interface Props {
     title: string;
     description?: string;
 }
+
+const { title, description }: Props = Astro.props;
 ---
 
 <meta charset="utf-8" />
@@ -18,5 +20,5 @@ interface Props {
 <link rel="canonical" href={canonicalURL} />
 <meta name="viewport" content="width=device-width" />
 <meta name="generator" content={Astro.generator} />
-<meta name="description" content="" />
-<title>Integración Tecnológica</title>
+<meta name="description" content={description} />
+<title>{title}</title>

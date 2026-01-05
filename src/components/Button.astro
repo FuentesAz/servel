@@ -1,5 +1,5 @@
 ---
-type Variant = 'primary' | 'secondary';
+type Variant = "primary" | "secondary";
 
 interface Props {
     title: string;
@@ -13,22 +13,18 @@ const { title, href, variant } = Astro.props as Props;
 // Base styles
 //---------------------
 
-const baseClasses = 'py-3 transition-colors cursor-pointer uppercase text-xs xl:text-lg md:text-base rounded-sm font-bold'
+const baseClasses =
+    "py-3 transition-colors cursor-pointer uppercase text-xs xl:text-lg md:text-base rounded-sm font-bold";
 
 //---------------------
-// Variant styles  
+// Variant styles
 //---------------------
 
 const variantClasses: Record<Variant, string> = {
-    primary: 'bg-red-700 hover:bg-red-800 text-white font-bold px-[50px]',
-    secondary: 'border-2 border-white hover:bg-white hover:text-black text-white px-[85px] lg:px-[103px]',
-    }
+    primary: "bg-red-700 hover:bg-red-800 text-white font-bold px-[50px]",
+    secondary:
+        "border-2 border-white hover:bg-white hover:text-black text-white px-[85px] lg:px-[103px]",
+};
 ---
 
-<div class="flex flex-wrap justify-center gap-4 xl:my-5">
-    <a
-        href={href}
-        class={`${baseClasses} ${variantClasses[variant]}`}
-        >{title}</a
-    >
-</div>
+<a href={href} class={`${baseClasses} ${variantClasses[variant]}`}>{title}</a>
