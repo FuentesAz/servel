@@ -1,0 +1,48 @@
+---
+import {Image} from "astro:assets";
+import banner from "../assets/Banner.webp";
+import bannerMobile from "../assets/Banner-mobile.webp";
+import Button from "./Button.astro";
+---
+
+<section
+    class="relative w-full h-[80vh] lg:h-[90vh] flex flex-col items-center justify-center overflow-hidden"
+>
+    <picture>
+        <!-- Mobile -->
+
+        <source media="(max-width: 768px)" srcset={bannerMobile.src} />
+
+        <!-- Desktop -->
+        <source media="(min-width: 769px)" srcset={banner.src} />
+
+        <Image
+            class="absolute size-full inset-0 object-cover -z-20"
+            src={banner}
+            alt="Banner optimizado"
+            loading="eager"
+        />
+        
+    </picture>
+    <div class="absolute inset-0 bg-black/60 h-full -z-10"></div>
+
+    <div
+        class="relative max-w-sm xl:max-w-6xl md:max-w-3xl sm:max-w-m text-center"
+    >
+        <h1
+            class="text-white xl:text-6xl font-bold md:text-4xl text-xl uppercase tracking-tight xl:my-10"
+        >
+            Soluciones tecnológicas claras, seguras y sin complicaciones.
+        </h1>
+        <p
+            class="text-zinc-300 text-center xl:text-4xl md:text-2xl text-md font-bold py-5"
+        >
+            CCTV, redes, soporte técnico y soluciones digitales para hogares y
+            negocios
+        </p>
+    </div>
+    <div class="mt-5 flex flex-col md:flex-row justify-center gap-4 xl:my-10">
+        <Button title="Cuéntanos tu problema" href="#" variant="primary" />
+        <Button title="Ver servicios" href="#" variant="secondary" />
+    </div>
+</section>
