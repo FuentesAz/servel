@@ -23,8 +23,8 @@ const { menuItems = [{
 ] }: Props = Astro.props as Props;
 ---
 
-<nav class="z-50 fixed flex justify-center top-10 inset-x-0 max-w-sm m-auto bg-black/30 backdrop-blur-sm rounded-3xl py-2 text-lg text-white">
-    <ul class="flex items-center justify-between gap-15 ">
+<nav class="z-50 fixed flex justify-center top-10 inset-x-0 max-w-xs m-auto bg-black/30 backdrop-blur-sm rounded-3xl py-2 text-lg text-white">
+    <ul class="flex items-center justify-between gap-8 ">
         {
             menuItems.map(({title, href})=>(
                 <li><a class="transition duration-300 ease-in-out hover:scale-115 inline-block" href={href}>{title}</a></li>
