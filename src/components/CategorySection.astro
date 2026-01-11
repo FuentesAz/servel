@@ -1,0 +1,41 @@
+---
+import Card from "./Card.astro";
+import camera from "../assets/camera.svg";
+import pc from "../assets/pc.svg";
+import pdv from "../assets/pdv.svg";
+
+const cards = [
+    {
+        title: "Seguridad y videovigilancia",
+        description:
+            "Sistemas de cámaras y vigilancia de alta resolución para proteger tu hogar o negocio las 24hrs",
+        image: camera,
+    },
+    {
+        title: "Soporte y reparación",
+        description:
+            "Mantenimiento, reparación y ensamblaje de equipos de cómputo con soluciones personalizadas para cada necesidad.",
+        image: pc,
+    },
+    {
+        title: "Punto de venta",
+        description:
+            "Soluciones completas de hardware y software para agilizar y administrar tus ventas de forma eficiente.",
+        image: pdv,
+    },
+];
+---
+
+<section class="relative flex items-center justify-center">
+    <div
+        class="-z-10 absolute -top-15 bg-white h-[120px] xl:h-[220px] lg:h-[180px] rounded-[50px] flex items-center justify-center text-center xl:w-7xl lg:w-5xl md:w-3xl sm:w-lg m-auto box-content"
+    >
+        <h1 class="font-bold xl:text-6xl lg:text-5xl md:text-4xl text-xl mx-8 ">
+            Todo en <span class="text-red-700">tecnología</span>, reparación y
+            seguridad
+        </h1>
+    </div>
+    <div class="inline-grid xl:grid-cols-3 lg:grid-cols-3 grid-cols-1 gap-10 mt-40 mb-20 m-auto xl:w-7xl lg:w-5xl md:w-4xxl sm:w-lg w-sm">
+        {cards.map((card) => <Card {...card} />)}
+    </div>
+</section> 

@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+import Button from "./Button.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  image: ImageMetadata;
+}
+
+const { title, description, image } = Astro.props;
+---
+
+<div
+  class="relative bg-red-800 rounded-3xl box-content text-white flex flex-col items-center text-center mt-25"
+>
+  <!-- Imagen flotante -->
+  <div class="absolute -top-20">
+    <Image src={image} alt={title} class="h-50" />
+  </div>
+
+  <!-- Espacio por la imagen -->
+  <div class="mt-30 flex flex-col gap-10 p-6 h-90">
+    <h3 class="text-xl font-bold uppercase px-17">
+      {title}
+    </h3>
+
+    <p class="text-sm leading-relaxed px-5">
+      {description}
+    </p>
+  </div>
+  <div class="absolute bottom-20">
+    <Button href="#contacto" variant="secondary" title="Contacto" />
+  </div>
+</div>
