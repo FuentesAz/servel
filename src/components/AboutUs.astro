@@ -1,0 +1,32 @@
+---
+import { Image } from "astro:assets";
+import aboutus from "../assets/us.png";
+import aboutusMobile from "../assets/us-mobile.webp";
+---
+
+<div
+    class="h-96hv w-full overflow-hidden flex justify-center items-center -mt-10 mb-30"
+>
+    <div class="relative">
+        <picture>
+            <source media="(max-width: 768px)" srcset={aboutusMobile.src} />
+            <source media="(min-width: 769px)" srcset={aboutus.src} />
+            <Image
+                src={aboutusMobile}
+                alt="Sobre Nosotros"
+                width="1800"
+                height="200"
+            />
+        </picture>
+    </div>
+    <div class="absolute max-w-sm xl:max-w-5xl lg:max-w-3xl md:max-w-2xl sm:max-w-3xl text-white text-center xl:mx-80 md:mx-40">
+        <h1 class="uppercase font-bold xl:text-4xl md:text-2xl text-xl">
+            Más de 25 años brindando soluciones en cómputo
+        </h1>
+        <p class="xl:text-xl md:text-lg text-md mt-10">
+            Desde el año 2000 ofrecemos soporte técnico, mantenimiento y
+            reparación de equipos de cómputo, respaldados por la experiencia y
+            la confianza de nuestros clientes
+        </p>
+    </div>
+</div>
