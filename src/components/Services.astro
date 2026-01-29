@@ -47,7 +47,7 @@ const cards = [
         imageHover: formateoHover,
     },
     {
-        title: "Instalacion de cableado estructurado",
+        title: "Instalación de cableado estructurado",
         image: cable,
         imageHover: cableHover,
     },
@@ -65,8 +65,7 @@ const cards = [
         title: "Instalación de sistemas de seguridad",
         image: camara,
         imageHover: camaraHover,
-    }
-    ,
+    },
     {
         title: "Ensamblaje de equipos",
         image: ensamble,
@@ -75,7 +74,7 @@ const cards = [
 ];
 ---
 
-<section class="bg-red-800">
+<section class="bg-red-800 pt-10">
     <div class="text-center py-10">
         <h1
             class="uppercase font-bold xl:text-4xl md:text-2xl text-xl text-white"
@@ -83,7 +82,7 @@ const cards = [
             Nuestros servicios
         </h1>
     </div>
-    <div class="grid xl:grid-cols-5 xl:w-7xl lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 lg:w-5xl md:w-3xl sm:w-lg justify-items-center m-auto gap-8 pb-10">
+    <div class="grid xl:grid-cols-5 xl:w-7xl lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 lg:w-5xl md:w-3xl sm:w-lg justify-items-center m-auto gap-8 py-10">
         {cards.map((card) => <CardServicios {...card} />)}
     </div>
 </section>
