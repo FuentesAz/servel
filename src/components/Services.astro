@@ -1,10 +1,89 @@
 ---
-import Button from "./Button.astro";
-
-
+import CardServicios from "./CardServicios.astro";
+import impresora from "../assets/impresora.png";
+import impresoraHover from "../assets/impresora-hover.png";
+import mtt from "../assets/mtt.png";
+import mttHover from "../assets/mtt-hover.png";
+import mttc from "../assets/mttc.png";
+import mttcHover from "../assets/mttc-hover.png";
+import software from "../assets/instalacion D.png";
+import softwareHover from "../assets/instalacion G.png";
+import formateo from "../assets/formateo D.png";
+import formateoHover from "../assets/formateo G.png";
+import cable from "../assets/rj45 D.png";
+import cableHover from "../assets/rj45 G.png";  
+import venta from "../assets/venta.png";
+import ventaHover from "../assets/venta-hove.png";
+import web from "../assets/web D.png";
+import webHover from "../assets/web G.png";
+import camara from "../assets/camara-hover.png";
+import camaraHover from "../assets/camara.png";
+import ensamble from "../assets/ensamble.png";
+import ensambleHover from "../assets/ensamble-hove.png";
+const cards = [
+    {
+        title: "Mantenimiento de impresoras",
+        image: impresora,
+        imageHover: impresoraHover,
+    },
+    {
+        title: "Mantenimiento preventivo",
+        image: mtt,
+        imageHover: mttHover,
+    },
+    {
+        title: "Mantenimiento correctivo",
+        image: mttc,
+        imageHover: mttcHover,
+    },
+    {
+        title: "Instalación de software",
+        image: software,
+        imageHover: softwareHover,
+    },
+    {
+        title: "Formateo",
+        image: formateo,
+        imageHover: formateoHover,
+    },
+    {
+        title: "Instalacion de cableado estructurado",
+        image: cable,
+        imageHover: cableHover,
+    },
+    {
+        title: "Venta de equipos",
+        image: venta,
+        imageHover: ventaHover,
+    },
+    {
+        title: "Desarrollo de páginas web",
+        image: web,
+        imageHover: webHover,
+    },
+    {
+        title: "Instalación de sistemas de seguridad",
+        image: camara,
+        imageHover: camaraHover,
+    }
+    ,
+    {
+        title: "Ensamblaje de equipos",
+        image: ensamble,
+        imageHover: ensambleHover,
+    },
+];
 ---
-<section class="bg-red-800 h-96">
+
+<section class="bg-red-800">
     <div class="text-center py-10">
-        <h1 class="uppercase font-bold xl:text-4xl md:text-2xl text-xl text-white">Nuestros servicios</h1>
+        <h1
+            class="uppercase font-bold xl:text-4xl md:text-2xl text-xl text-white"
+        >
+            Nuestros servicios
+        </h1>
+    </div>
+    <div class="grid xl:grid-cols-5 xl:w-7xl lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 lg:w-5xl md:w-3xl sm:w-lg justify-items-center m-auto gap-8 pb-10">
+        {cards.map((card) => <CardServicios {...card} />)}
     </div>
 </section>
