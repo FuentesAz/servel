@@ -44,7 +44,6 @@ const logos = [
     },
 ];
 
-const speed = 120;
 ---
 
 <div class="relative w-full overflow-hidden py-15">
@@ -58,7 +57,7 @@ const speed = 120;
     </div>
 
     <!-- Track -->
-    <div class="flex items-center gap-8 xl:gap-16 animate-scroll  xl:animate-[scroll_12s_linear_infinite]  animate-[scroll_8s_linear_infinite]">
+    <div class="flex items-center gap-8 xl:gap-16 xl:animate-[scroll_12s_linear_infinite]  animate-[scroll_8s_linear_infinite]">
         {
             [...logos, ...logos].map((logo) => (
                 <Image
