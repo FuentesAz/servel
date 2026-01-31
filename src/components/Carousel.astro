@@ -1,0 +1,82 @@
+---
+import acteck from "../assets/logos/acteck.png";
+import asrock from "../assets/logos/asrock.png";
+import intel from "../assets/logos/intel.png";
+import kingston from "../assets/logos/kingston.png";
+import amd from "../assets/logos/amd.png";
+import tplink from "../assets/logos/tplink.png";
+import Image from "astro/components/Image.astro";
+import gigabyte from "../assets/logos/gigabyte.png";
+import ocelot from "../assets/logos/ocelot.png";
+
+const logos = [
+    {
+        src: acteck,
+        alt: "Acteck Logo",
+    },
+    {
+        src: asrock,
+        alt: "Asrock Logo",
+    },
+    {
+        src: intel,
+        alt: "Intel Logo",
+    },
+    {
+        src: kingston,
+        alt: "Kingston Logo",
+    },
+    {
+        src: amd,
+        alt: "AMD Logo",
+    },
+    {
+        src: tplink,
+        alt: "TP-Link Logo",
+    },
+    {
+        src: gigabyte,
+        alt: "Gigabyte Logo",
+    },
+    {
+        src: ocelot,
+        alt: "Ocelot Logo",
+    },
+];
+
+---
+
+<div class="relative w-full overflow-hidden py-15">
+    <div
+        class="pointer-events-none absolute left-0 top-0 h-full xl:w-150 w-20 bg-gradient-to-r from-white to-transparent z-10"
+    >
+    </div>
+    <div
+        class="pointer-events-none absolute right-0 top-0 h-full xl:w-150 w-20 bg-gradient-to-l from-white to-transparent z-10"
+    >
+    </div>
+
+    <!-- Track -->
+    <div class="flex items-center gap-8 xl:gap-16 xl:animate-[scroll_12s_linear_infinite]  animate-[scroll_8s_linear_infinite]">
+        {
+            [...logos, ...logos].map((logo) => (
+                <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    class="h-8 xl:w-auto w-30 object-contain transition xl:grayscale xl:hover:opacity-100 xl:hover:grayscale-0"
+                />
+            ))
+        }
+    </div>
+</div>
+
+<style>
+    @keyframes scroll {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-50%);
+        }
+    }
+</style>
