@@ -43,6 +43,8 @@ const logos = [
         alt: "Ocelot Logo",
     },
 ];
+
+const speed = 120;
 ---
 
 <div class="relative w-full overflow-hidden py-15">
@@ -56,13 +58,13 @@ const logos = [
     </div>
 
     <!-- Track -->
-    <div class="flex items-center gap-16 animate-scroll">
+    <div class="flex items-center gap-8 xl:gap-16 animate-scroll  xl:animate-[scroll_12s_linear_infinite]  animate-[scroll_8s_linear_infinite]">
         {
             [...logos, ...logos].map((logo) => (
                 <Image
                     src={logo.src}
                     alt={logo.alt}
-                    class="h-8 w-auto object-contain transition xl:grayscale xl:hover:opacity-100 xl:hover:grayscale-0"
+                    class="h-8 xl:w-auto w-30 object-contain transition xl:grayscale xl:hover:opacity-100 xl:hover:grayscale-0"
                 />
             ))
         }
@@ -77,9 +79,5 @@ const logos = [
         to {
             transform: translateX(-50%);
         }
-    }
-
-    .animate-scroll {
-        animation: scroll 30s linear infinite;
     }
 </style>
