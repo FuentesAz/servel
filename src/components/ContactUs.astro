@@ -1,0 +1,243 @@
+---
+import call from "../assets/call.png";
+import whatsapp from "../assets/whatsapp.png";
+import email from "../assets/email.png";
+import facebookIcon from "../assets/facebookIcon.png";
+import { Image } from "astro:assets";
+import Button from "./Button.astro";
+---
+
+<section>
+    <div class="max-w-7xl mx-auto px-4">
+        <!-- MAPA -->
+        <div class="pb-10">
+            <iframe
+                class="w-full h-[400px] rounded-xl"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d233.3767752825096!2d-87.0779721!3d20.627699!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f4e433cae70a183%3A0x9f135385e21b1240!2sINTEGRACI%C3%93N%20TECNOL%C3%93GICA!5e0!3m2!1ses-419!2smx!4v1769836157866!5m2!1ses-419!2smx"
+                style="border:0;"
+                loading="lazy"></iframe>
+        </div>
+
+        <!-- GRID PRINCIPAL -->
+        <div class="grid lg:grid-cols-3 gap-10">
+            <!-- FORMULARIO -->
+            <div
+                class="lg:p-10 lg:rounded-3xl lg:bg-white lg:shadow lg:col-span-2"
+            >
+                <h1 class="text-2xl font-bold text-red-800 mb-2">
+                    Mándanos un mensaje
+                </h1>
+
+                <p class="max-w-xl mb-10">
+                    Desde videovigilancia hasta sitios web, te ayudamos a
+                    implementar la tecnología que tu proyecto necesita.
+                </p>
+
+                <form class="space-y-6" id="contact-form" method="POST" enctype="multipart/form-data">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="font-bold mb-2 block">Nombre</label>
+                            <input
+                                class="border border-gray-400 rounded-3xl py-2 px-5 w-full focus:outline-red-800"
+                                type="text"
+                                placeholder="Escriba su nombre..."
+                                name="name"
+                                required
+                            />
+                        </div>
+
+                        <div>
+                            <label class="font-bold mb-2 block">Apellido</label>
+                            <input
+                                class="border border-gray-400 rounded-3xl py-2 px-5 w-full focus:outline-red-800"
+                                type="text"
+                                placeholder="Escriba su apellido..."
+                                name="lastname"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="font-bold mb-2 block"
+                                >Número de contacto</label
+                            >
+                            <input
+                                class="border border-gray-400 rounded-3xl py-2 px-5 w-full focus:outline-red-800"
+                                type="tel"
+                                placeholder="Escriba su número..."
+                                name="phone"
+                                required
+                            />
+                        </div>
+
+                        <div>
+                            <label class="font-bold mb-2 block"
+                                >Correo Electrónico</label
+                            >
+                            <input
+                                class="border border-gray-400 rounded-3xl py-2 px-5 w-full focus:outline-red-800"
+                                type="email"
+                                placeholder="Escriba su correo..."
+                                name="email"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="font-bold mb-2 block">Mensaje</label>
+                        <textarea
+                            class="border border-gray-400 rounded-3xl py-2 px-5 w-full focus:outline-red-800 resize-none"
+                            rows="4"
+                            placeholder="Escriba su mensaje..."
+                            name="message"
+                            required></textarea>
+                        <p
+                            id="response-msg"
+                            aria-live="polite"
+                            class="hidden text-sm mt-4 font-medium"
+                        >
+                        </p>
+                    </div>
+
+                    <button
+                        class="bg-red-800 text-white px-6 py-3 rounded-xl hover:bg-red-900 transition flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                        id="submit-btn"
+                    >
+                        <svg
+                            id="spinner"
+                            class="hidden animate-spin h-5 w-5 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                        >
+                            <circle
+                                class="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                stroke-width="4"></circle>
+                            <path
+                                class="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path>
+                        </svg>
+                        <p id="btn-text">Enviar Mensaje</p>
+                    </button>
+                </form>
+            </div>
+
+            <!-- CARD ROJO -->
+            <div class="bg-red-800 rounded-3xl p-10 text-white shadow h-fit">
+                <h1 class="text-xl font-bold mb-10">
+                    Hola! Estamos aquí para ayudarte
+                </h1>
+                <div
+                    class="bg-white/20 p-5 rounded-lg mb-8 text-white grid grid-flow-col grid-rows-2 items-center"
+                >
+                    <Image
+                        class="w-10 row-span-2"
+                        src={call}
+                        alt="Contact Icon"
+                    />
+                    <p class="font-bold col-span-2 grid-rows-subgrid">
+                        Teléfono:
+                    </p>
+                    <p>+52 984 802 1960</p>
+                </div>
+                <div
+                    class="bg-white/20 p-5 rounded-lg mb-8 text-white grid grid-flow-col grid-rows-2 items-center"
+                >
+                    <Image
+                        class="w-10 row-span-2"
+                        src={whatsapp}
+                        alt="Whatsapp Icon"
+                    />
+                    <p class="font-bold col-span-2 grid-rows-subgrid">
+                        Whatsapp:
+                    </p>
+                    <p>+52 984 108 5234</p>
+                </div>
+                <div
+                    class="bg-white/20 p-5 rounded-lg mb-8 text-white grid grid-flow-col grid-rows-2 items-center"
+                >
+                    <Image
+                        class="w-10 row-span-2"
+                        src={email}
+                        alt="Email Icon"
+                    />
+                    <p class="font-bold col-span-2 grid-rows-subgrid">
+                        Correo Electrónico:
+                    </p>
+                    <p>ventas_servel@outlook.com</p>
+                </div>
+                <hr />
+                <p class="lg:mt-6 my-6">Conéctate con nosotros</p>
+                <div class="flex space-x-4 lg:mt-6">
+                    <a
+                        href="https://www.facebook.com/servelmx/"
+                        target="_blank"
+                    >
+                        <Image
+                            alt="facebook icon"
+                            class="w-5"
+                            src={facebookIcon}
+                        />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const form = document.getElementById("contact-form") as HTMLFormElement;
+    const msg = document.getElementById("response-msg") as HTMLParagraphElement;
+    const btn = document.getElementById("submit-btn") as HTMLButtonElement;
+    const spinner = document.getElementById("spinner") as HTMLElement;
+    const btnText = document.getElementById("btn-text") as HTMLParagraphElement;
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // Estado inicial de carga
+        btn.disabled = true;
+        btnText.innerText = "Enviando...";
+        spinner.classList.remove("hidden");
+        msg.classList.add("hidden");
+
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch("../api/send-email", {
+                method: "POST",
+                body: formData,
+            });
+
+            const result = await response.json();
+
+            // Limpiamos colores previos de error/éxito
+            msg.classList.remove("hidden", "text-red-400", "text-green-400");
+
+            if (response.ok) {
+                msg.innerText = "¡Mensaje enviado correctamente!";
+                msg.classList.add("text-green-400");
+                form.reset();
+            } else {
+                throw new Error(result.error || "Error en el servidor");
+            }
+        } catch (error: any) {
+            msg.innerText = "Error al enviar el mensaje.";
+            msg.classList.add("text-red-400");
+            msg.classList.remove("hidden");
+        } finally {
+            btn.disabled = false;
+            btnText.innerText = "Enviar Mensaje";
+            spinner.classList.add("hidden"); // ¡No olvides ocultar el spinner!
+            msg.classList.remove("hidden");
+        }
+    });
+</script>
