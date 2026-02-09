@@ -33,7 +33,7 @@ import { Image } from "astro:assets";
                     implementar la tecnología que tu proyecto necesita.
                 </p>
 
-                <form class="space-y-6" id="contact-form" method="POST" enctype="multipart/form-data">
+                <form class="space-y-6" id="contact-form" method="POST" action="/api/send-email">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="font-bold mb-2 block">Nombre</label>
@@ -180,6 +180,7 @@ import { Image } from "astro:assets";
                     <a
                         href="https://www.facebook.com/servelmx/"
                         target="_blank"
+                        rel="noopener noreferrer"
                     >
                         <Image
                             alt="facebook icon"
@@ -193,7 +194,7 @@ import { Image } from "astro:assets";
     </div>
 </section>
 
-<script>
+<script >
     const form = document.getElementById("contact-form") as HTMLFormElement;
     const msg = document.getElementById("response-msg") as HTMLParagraphElement;
     const btn = document.getElementById("submit-btn") as HTMLButtonElement;
@@ -212,7 +213,7 @@ import { Image } from "astro:assets";
         const formData = new FormData(form);
 
         try {
-            const response = await fetch("../api/send-email", {
+            const response = await fetch("/api/send-email", {
                 method: "POST",
                 body: formData,
             });
