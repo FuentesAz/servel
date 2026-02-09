@@ -1,15 +1,19 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <html lang="es">
 	<head>
-		<BaseHead title='Servel Computadoras' description='Servicios de reparación y componentes' />
+		<BaseHead
+			title="Servel Computadoras"
+			description="Servicios de reparación y componentes"
+		/>
 	</head>
 	<body>
 		<main class="max-w-[1650px] m-auto">
-			<slot/>
+			<slot />
 		</main>
 	</body>
+	<Footer />
 </html>
- 
