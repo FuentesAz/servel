@@ -25,8 +25,8 @@ export const POST: APIRoute = async ({ request }) => {
 
     try {
         await resend.emails.send({
-            from: 'Servel <onboarding@resend.dev>',
-            to: 'lopezzared13@gmail.com',
+            from: import.meta.env.RESEND_FROM,
+            to: import.meta.env.CONTACT_TO,
             subject: 'Contacto desde la web',
             text: `Nombre: ${name}\nCorreo: ${email}\nTelefono: ${phone}\nMensaje: ${message}`,
         })
