@@ -7,6 +7,7 @@ import Button from "./Button.astro";
 
 <section
     class="relative w-full h-[80vh] lg:h-[90vh] flex flex-col items-center justify-center overflow-hidden"
+    id="home"
 >
     <picture>
         <!-- Mobile -->
@@ -42,7 +43,7 @@ import Button from "./Button.astro";
         </p>
     </div>
     <div class="mt-5 flex flex-col md:flex-row justify-center gap-4 xl:my-10">
-        <Button title="Cuéntanos tu problema" href="#" variant="primary" />
-        <Button title="Ver servicios" href="#" variant="secondary" />
+        <Button title="Cuéntanos tu problema" target="_blank" href={`https://wa.me/${import.meta.env.CONTACT_WA_NUMBER}`} variant="primary" />
+        <Button title="Ver servicios" href="/#services" variant="secondary" />
     </div>
 </section>

@@ -5,9 +5,10 @@ interface Props {
     title: string;
     href: string;
     variant: Variant;
+    target?: string;
 }
 
-const { title, href, variant } = Astro.props as Props;
+const { title, href, variant, target } = Astro.props as Props;
 
 //---------------------
 // Base styles
@@ -27,5 +28,5 @@ const variantClasses: Record<Variant, string> = {
 };
 ---
 
-<a href={href} class={`${baseClasses} ${variantClasses[variant]}`}>{title}</a>
+<a rel="noopener noreferrer" target={target} href={href} class={`${baseClasses} ${variantClasses[variant]}`}>{title}</a>
 
