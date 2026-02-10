@@ -11,6 +11,4 @@ export default defineConfig({
   }),
   vite: {
     plugins: [tailwindcss()]
-  },
-  site: "https://servel.pages.dev"
-});
+  }});
