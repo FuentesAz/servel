@@ -12,5 +12,5 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
-  site: 'https://servel.com'
+  site: "https://servel.pages.dev"
 });
