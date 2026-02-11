@@ -9,15 +9,8 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone', // Crea un servidor independiente
   }),
-  server: {
-    host: true,
-    port: 4321, // Puerto por defecto de Astro
-  },
   vite: {
-    server: {
-      allowedHosts: ['.ngrok-free.app']
-    },
     plugins: [tailwindcss()]
   },
-  site: 'https://servel.com'
+  site: 'https://servel-computadoras.com'
 });
