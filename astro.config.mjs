@@ -1,13 +1,13 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
-import node from '@astrojs/node'; // 1. Importa el adaptador
+import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server', // 2. CAMBIO CLAVE: Activa el modo servidor (SSR)
+  output: 'server', 
   adapter: node({
-    mode: 'standalone', // Crea un servidor independiente
+    mode: 'standalone',
   }),
   vite: {
     plugins: [tailwindcss()]
