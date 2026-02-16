@@ -33,12 +33,7 @@ import { Image } from "astro:assets";
                     implementar la tecnología que tu proyecto necesita.
                 </p>
 
-                <form
-                    class="space-y-6"
-                    id="contact-form"
-                    method="POST"
-                    action="/api/send-email"
-                >
+                <form class="space-y-6" id="contact-form" method="POST" action="/api/send-email">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="font-bold mb-2 block">Nombre</label>
@@ -46,7 +41,7 @@ import { Image } from "astro:assets";
                                 class="border border-gray-400 rounded-3xl py-2 px-5 w-full focus:outline-red-800"
                                 type="text"
                                 placeholder="Escriba su nombre..."
-                                name="nombre"
+                                name="name"
                                 required
                             />
                         </div>
@@ -57,7 +52,7 @@ import { Image } from "astro:assets";
                                 class="border border-gray-400 rounded-3xl py-2 px-5 w-full focus:outline-red-800"
                                 type="text"
                                 placeholder="Escriba su apellido..."
-                                name="apellido"
+                                name="lastname"
                             />
                         </div>
                     </div>
@@ -71,7 +66,7 @@ import { Image } from "astro:assets";
                                 class="border border-gray-400 rounded-3xl py-2 px-5 w-full focus:outline-red-800"
                                 type="tel"
                                 placeholder="Escriba su número..."
-                                name="telefono"
+                                name="phone"
                                 required
                             />
                         </div>
@@ -96,7 +91,7 @@ import { Image } from "astro:assets";
                             class="border border-gray-400 rounded-3xl py-2 px-5 w-full focus:outline-red-800 resize-none"
                             rows="4"
                             placeholder="Escriba su mensaje..."
-                            name="mensaje"
+                            name="message"
                             required></textarea>
                         <p
                             id="response-msg"
@@ -199,7 +194,7 @@ import { Image } from "astro:assets";
     </div>
 </section>
 
-<script>
+<script >
     const form = document.getElementById("contact-form") as HTMLFormElement;
     const msg = document.getElementById("response-msg") as HTMLParagraphElement;
     const btn = document.getElementById("submit-btn") as HTMLButtonElement;
@@ -209,35 +204,23 @@ import { Image } from "astro:assets";
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
+        // Estado inicial de carga
         btn.disabled = true;
         btnText.innerText = "Enviando...";
         spinner.classList.remove("hidden");
         msg.classList.add("hidden");
 
-        const data = {
-            nombre: (form.querySelector('[name="nombre"]') as HTMLInputElement)
-                .value,
-            email: (form.querySelector('[name="email"]') as HTMLInputElement)
-                .value,
-            telefono: (
-                form.querySelector('[name="telefono"]') as HTMLInputElement
-            ).value,
-            mensaje: (
-                form.querySelector('[name="mensaje"]') as HTMLTextAreaElement
-            ).value,
-        };
+        const formData = new FormData(form);
 
         try {
             const response = await fetch("/api/send-email", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
+                body: formData,
             });
 
             const result = await response.json();
 
+            // Limpiamos colores previos de error/éxito
             msg.classList.remove("hidden", "text-red-400", "text-green-400");
 
             if (response.ok) {
@@ -247,13 +230,14 @@ import { Image } from "astro:assets";
             } else {
                 throw new Error(result.error || "Error en el servidor");
             }
-        } catch {
+        } catch (error: any) {
             msg.innerText = "Error al enviar el mensaje.";
             msg.classList.add("text-red-400");
+            msg.classList.remove("hidden");
         } finally {
             btn.disabled = false;
             btnText.innerText = "Enviar Mensaje";
-            spinner.classList.add("hidden");
+            spinner.classList.add("hidden"); // ¡No olvides ocultar el spinner!
             msg.classList.remove("hidden");
         }
     });
