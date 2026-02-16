@@ -9,11 +9,14 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
-  server:{
+
+  server: {
     host: true
   },
+
   vite: {
     plugins: [tailwindcss()]
   },
-  site: 'https://servel.com'
+
+  site: 'https://servelcomputadoras.com'
 });
