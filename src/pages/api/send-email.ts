@@ -29,16 +29,22 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     try {
-        await resend.emails.send({
+        const { data, error } = await resend.emails.send({
             from: import.meta.env.RESEND_FROM,
             to: import.meta.env.CONTACT_TO,
             subject: 'Contacto desde la web',
             text: `Nombre: ${name}\nCorreo: ${email}\nTelefono: ${phone}\nMensaje: ${message}`,
         })
 
+        if (error) {
+            // Esto imprimirá el error real en los logs de Docker
+            console.error("Error de Resend:", error);
+            return new Response(JSON.stringify({ success: false, error: error.message }), { status: 422 })
+        }
+
         return new Response(JSON.stringify({ success: true }), { status: 200 })
     } catch (error) {
-        return new Response(JSON.stringify({ success: false, error: 'Hubo un error al enviar el correo' }), { status: 500 })
-        console.error('Error al enviar correo:', error);
+        console.error("Error inesperado:", error);
+        return new Response(JSON.stringify({ success: false, error: 'Error interno' }), { status: 500 })
     }
 };
