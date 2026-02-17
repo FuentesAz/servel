@@ -9,9 +9,14 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
-  server:{
+  server: {
     host: true
   },
+  
+  security: {
+    checkOrigin: false,
+  },
+
   vite: {
     plugins: [tailwindcss()]
   },
