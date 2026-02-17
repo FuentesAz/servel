@@ -37,8 +37,8 @@ export const POST: APIRoute = async ({ request }) => {
         })
 
         if (error) {
-            // Esto imprimirá el error real en los logs de Docker
             console.error("Error de Resend:", error);
+            console.log(data)
             return new Response(JSON.stringify({ success: false, error: error.message }), { status: 422 })
         }
 
