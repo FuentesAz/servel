@@ -31,7 +31,7 @@ export const POST: APIRoute = async ({ request }) => {
     try {
         const { data, error } = await resend.emails.send({
             from: import.meta.env.RESEND_FROM,
-            to: import.meta.env.CONTACT_TO,
+            to: [import.meta.env.CONTACT_TO],
             subject: 'Contacto desde la web',
             text: `Nombre: ${name}\nCorreo: ${email}\nTelefono: ${phone}\nMensaje: ${message}`,
         })
