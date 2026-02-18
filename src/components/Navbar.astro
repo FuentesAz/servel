@@ -8,27 +8,59 @@ interface Props {
     menuItems?: NavMenuItem[];
 }
 
-const { menuItems = [{
-    title: "Inicio",
-    href: "/#home"
-},
-{
-    title: "Servicios",
-    href: "/#services"
-},
-{
-    title: "Contacto",
-    href: "/#contact-form"
-}
-] }: Props = Astro.props as Props;
+const { menuItems = [
+    { title: "Inicio", href: "#home" },
+    { title: "Servicios", href: "#services" },
+    { title: "Contacto", href: "#contact-form" }
+] }: Props = Astro.props;
 ---
 
-<nav class="z-50 fixed flex justify-center top-10 inset-x-0 max-w-xs m-auto bg-black/30 backdrop-blur-sm rounded-3xl py-2 text-lg text-white">
-    <ul class="flex items-center justify-between gap-8 ">
+<nav class="fixed top-10 inset-x-0 z-50 m-auto flex max-w-fit justify-center rounded-full bg-black/40 py-1 px-1.5 text-white backdrop-blur-md border border-white/10">
+    <ul class="relative flex items-center gap-1" id="nav-menu">
+        <div 
+            id="nav-backdrop" 
+            class="absolute left-0 top-0 -z-10 h-full rounded-full bg-white/20 transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) opacity-0"
+        ></div>
+
         {
-            menuItems.map(({title, href})=>(
-                <li><a class="transition duration-300 ease-in-out hover:scale-115 inline-block" href={href}>{title}</a></li>
+            menuItems.map(({ title, href }) => (
+                <li class="nav-item">
+                    <a 
+                        class="relative z-10 inline-block px-5 py-2 text-lg font-medium transition-colors hover:text-white/80" 
+                        href={href}
+                    >
+                        {title}
+                    </a>
+                </li>
             ))
         }
     </ul>
 </nav>
+
+<script>
+    const backdrop = document.querySelector('#nav-backdrop') as HTMLElement;
+    const items = document.querySelectorAll('.nav-item');
+
+    function moveBackdrop(element: HTMLElement) {
+        const { offsetLeft, offsetWidth, offsetHeight } = element;
+        
+        backdrop.style.setProperty("left", `${offsetLeft}px`);
+        backdrop.style.setProperty("width", `${offsetWidth}px`);
+        backdrop.style.setProperty("height", `${offsetHeight}px`);
+        backdrop.style.setProperty("opacity", "1");
+    }
+
+    items.forEach((item) => {
+        item.addEventListener('click', (e) => {
+            // Opcional: Evitar salto brusco si es anchor link interno
+            // e.preventDefault(); 
+            moveBackdrop(item as HTMLElement);
+        });
+    });
+
+    // Inicializar en el primer elemento al cargar (opcional)
+    window.addEventListener('load', () => {
+        const firstItem = items[0] as HTMLElement;
+        if (firstItem) moveBackdrop(firstItem);
+    });
+</script>
