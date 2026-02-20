@@ -43,8 +43,10 @@ const {
 </nav>
 
 <script>
+import { nativeEnum } from "astro:schema";
+
     document.addEventListener("astro:page-load", () => {
-        let activeItem: HTMLElement | null = null;
+        let currentTargetSection: HTMLElement | null = null;
         let isProgrammaticScroll = false;
         const backdrop = document.querySelector("#nav-backdrop") as HTMLElement;
         const items = document.querySelectorAll(".nav-item");
@@ -73,7 +75,7 @@ const {
 
             item.addEventListener("click", (e) => {
                 e.preventDefault();
-
+                currentTargetSection = section;
                 isProgrammaticScroll = true; //pausa observer
 
                 moveBackdrop(item as HTMLElement);
@@ -93,7 +95,20 @@ const {
         //Observer para scroll
         const observer = new IntersectionObserver(
             (entries) => {
-                if (isProgrammaticScroll) return;
+                if (currentTargetSection) {
+                    const targetEntry = entries.find(
+                        (e) => e.target === currentTargetSection && e.isIntersecting,
+                    );
+
+                    if(targetEntry){
+                        const navItem = sectionMap.get(currentTargetSection);
+                        if (navItem) moveBackdrop(navItem);
+
+                        currentTargetSection = null;
+                    }
+                    return;
+                }
+
 
                 const visibleEntry = entries
                     .filter((entry) => entry.isIntersecting)
