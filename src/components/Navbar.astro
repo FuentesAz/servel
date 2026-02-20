@@ -18,20 +18,20 @@ const {
 ---
 
 <nav
-    class="fixed top-10 inset-x-0 z-50 m-auto flex max-w-fit justify-center rounded-full bg-black/40 py-1 px-1.5 text-white backdrop-blur-md border border-white/10"
+    class="fixed top-10 inset-x-0 z-50 m-auto flex max-w-fit justify-center rounded-full bg-black/50 py-1 px-2 text-white backdrop-blur-md border border-white/10"
 >
-    <ul class="relative flex items-center gap-1" id="nav-menu">
+    <ul class="relative flex items-center" id="nav-menu">
         <div
             id="nav-backdrop"
-            class="absolute left-0 top-0 -z-10 h-full rounded-full bg-white/20 transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) opacity-0"
+            class="absolute left-0 top-0 -z-10 h-full rounded-full bg-white/20 transition-all duration-300 ease-in-out opacity-0"
         >
         </div>
 
         {
             menuItems.map(({ title, href }) => (
-                <li class="nav-item">
+                <li>
                     <a
-                        class="relative z-10 inline-block px-5 py-2 text-lg font-medium transition-colors hover:text-white/80"
+                        class="relative z-10 inline-block px-4 py-2 text-lg font-lg transition-colors hover:text-white/70"
                         href={href}
                     >
                         {title}
@@ -43,98 +43,27 @@ const {
 </nav>
 
 <script>
-import { nativeEnum } from "astro:schema";
+    const backdrop = document.querySelector("#nav-backdrop") as HTMLElement;
+    const items = document.querySelectorAll("#nav-menu li");
 
-    document.addEventListener("astro:page-load", () => {
-        let currentTargetSection: HTMLElement | null = null;
-        let isProgrammaticScroll = false;
-        const backdrop = document.querySelector("#nav-backdrop") as HTMLElement;
-        const items = document.querySelectorAll(".nav-item");
+    function moveBackdrop(element: HTMLElement) {
+        const { offsetLeft, offsetWidth, offsetHeight } = element;
 
-        //Mapa sección → item del nav
-        const sectionMap = new Map<HTMLElement, HTMLElement>();
+        backdrop.style.setProperty("left", `${offsetLeft}px`);
+        backdrop.style.setProperty("width", `${offsetWidth}px`);
+        backdrop.style.setProperty("height", `${offsetHeight}px`);
+        backdrop.style.setProperty("opacity", "1");
+    }
 
-        function moveBackdrop(element: HTMLElement) {
-            const { offsetLeft, offsetWidth, offsetHeight } = element;
-
-            backdrop.style.setProperty("left", `${offsetLeft}px`);
-            backdrop.style.setProperty("width", `${offsetWidth}px`);
-            backdrop.style.setProperty("height", `${offsetHeight}px`);
-            backdrop.style.setProperty("opacity", "1");
-        }
-
-        //Click en navbar
-        items.forEach((item) => {
-            const link = item.querySelector("a") as HTMLAnchorElement;
-            const id = link.getAttribute("href")?.replace("#", "");
-            const section = document.getElementById(id!);
-
-            if (section) {
-                sectionMap.set(section, item as HTMLElement);
-            }
-
-            item.addEventListener("click", (e) => {
-                e.preventDefault();
-                currentTargetSection = section;
-                isProgrammaticScroll = true; //pausa observer
-
-                moveBackdrop(item as HTMLElement);
-
-                section?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                });
-
-                //Reactivamos observer después del scroll
-                setTimeout(() => {
-                    isProgrammaticScroll = false;
-                }, 800); //ajustable
-            });
+    items.forEach((item) => {
+        item.addEventListener("click", () => {
+            moveBackdrop(item as HTMLElement);
         });
+    });
 
-        //Observer para scroll
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (currentTargetSection) {
-                    const targetEntry = entries.find(
-                        (e) => e.target === currentTargetSection && e.isIntersecting,
-                    );
-
-                    if(targetEntry){
-                        const navItem = sectionMap.get(currentTargetSection);
-                        if (navItem) moveBackdrop(navItem);
-
-                        currentTargetSection = null;
-                    }
-                    return;
-                }
-
-
-                const visibleEntry = entries
-                    .filter((entry) => entry.isIntersecting)
-                    .sort(
-                        (a, b) => b.intersectionRatio - a.intersectionRatio,
-                    )[0];
-
-                if (!visibleEntry) return;
-
-                const navItem = sectionMap.get(
-                    visibleEntry.target as HTMLElement,
-                );
-                if (navItem) moveBackdrop(navItem);
-            },
-            {
-                threshold: [0.3, 0.6, 0.9],
-            },
-        );
-
-        //Observar secciones
-        sectionMap.forEach((_, section) => observer.observe(section));
-
-        //Inicializar en el primer item
-        window.addEventListener("load", () => {
-            const firstItem = items[0] as HTMLElement;
-            if (firstItem) moveBackdrop(firstItem);
-        });
+    // Inicializar en el primer elemento al cargar (opcional)
+    window.addEventListener("load", () => {
+        const firstItem = items[0] as HTMLElement;
+        if (firstItem) moveBackdrop(firstItem);
     });
 </script>
