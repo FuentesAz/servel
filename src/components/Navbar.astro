@@ -43,77 +43,83 @@ const {
 </nav>
 
 <script>
-    let activeItem: HTMLElement | null = null;
-    let isProgrammaticScroll = false;
-    const backdrop = document.querySelector("#nav-backdrop") as HTMLElement;
-    const items = document.querySelectorAll(".nav-item");
+    document.addEventListener("astro:page-load", () => {
+        let activeItem: HTMLElement | null = null;
+        let isProgrammaticScroll = false;
+        const backdrop = document.querySelector("#nav-backdrop") as HTMLElement;
+        const items = document.querySelectorAll(".nav-item");
 
-    // 🔹 Mapa sección → item del nav
-    const sectionMap = new Map<HTMLElement, HTMLElement>();
+        //Mapa sección → item del nav
+        const sectionMap = new Map<HTMLElement, HTMLElement>();
 
-    function moveBackdrop(element: HTMLElement) {
-        const { offsetLeft, offsetWidth, offsetHeight } = element;
+        function moveBackdrop(element: HTMLElement) {
+            const { offsetLeft, offsetWidth, offsetHeight } = element;
 
-        backdrop.style.setProperty("left", `${offsetLeft}px`);
-        backdrop.style.setProperty("width", `${offsetWidth}px`);
-        backdrop.style.setProperty("height", `${offsetHeight}px`);
-        backdrop.style.setProperty("opacity", "1");
-    }
-
-    // 🔹 Click en navbar
-    items.forEach((item) => {
-        const link = item.querySelector("a") as HTMLAnchorElement;
-        const id = link.getAttribute("href")?.replace("#", "");
-        const section = document.getElementById(id!);
-
-        if (section) {
-            sectionMap.set(section, item as HTMLElement);
+            backdrop.style.setProperty("left", `${offsetLeft}px`);
+            backdrop.style.setProperty("width", `${offsetWidth}px`);
+            backdrop.style.setProperty("height", `${offsetHeight}px`);
+            backdrop.style.setProperty("opacity", "1");
         }
 
-        item.addEventListener("click", (e) => {
-            e.preventDefault();
+        //Click en navbar
+        items.forEach((item) => {
+            const link = item.querySelector("a") as HTMLAnchorElement;
+            const id = link.getAttribute("href")?.replace("#", "");
+            const section = document.getElementById(id!);
 
-            isProgrammaticScroll = true; // ⛔ pausa observer
+            if (section) {
+                sectionMap.set(section, item as HTMLElement);
+            }
 
-            moveBackdrop(item as HTMLElement);
+            item.addEventListener("click", (e) => {
+                e.preventDefault();
 
-            section?.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
+                isProgrammaticScroll = true; //pausa observer
+
+                moveBackdrop(item as HTMLElement);
+
+                section?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                });
+
+                //Reactivamos observer después del scroll
+                setTimeout(() => {
+                    isProgrammaticScroll = false;
+                }, 800); //ajustable
             });
-
-            // Reactivamos observer después del scroll
-            setTimeout(() => {
-                isProgrammaticScroll = false;
-            }, 800); // ⏱ ajustable
         });
-    });
 
-    // 🔹 Observer para scroll
-    const observer = new IntersectionObserver(
-        (entries) => {
-            if (isProgrammaticScroll) return; // 🔥 clave
+        //Observer para scroll
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (isProgrammaticScroll) return;
 
-            const visibleEntry = entries
-                .filter((entry) => entry.isIntersecting)
-                .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+                const visibleEntry = entries
+                    .filter((entry) => entry.isIntersecting)
+                    .sort(
+                        (a, b) => b.intersectionRatio - a.intersectionRatio,
+                    )[0];
 
-            if (!visibleEntry) return;
+                if (!visibleEntry) return;
 
-            const navItem = sectionMap.get(visibleEntry.target as HTMLElement);
-            if (navItem) moveBackdrop(navItem);
-        },
-        {
-            threshold: [0.3, 0.6, 0.9],
-        },
-    );
+                const navItem = sectionMap.get(
+                    visibleEntry.target as HTMLElement,
+                );
+                if (navItem) moveBackdrop(navItem);
+            },
+            {
+                threshold: [0.3, 0.6, 0.9],
+            },
+        );
 
-    // 🔹 Observar secciones
-    sectionMap.forEach((_, section) => observer.observe(section));
+        //Observar secciones
+        sectionMap.forEach((_, section) => observer.observe(section));
 
-    // 🔹 Inicializar en el primer item
-    window.addEventListener("load", () => {
-        const firstItem = items[0] as HTMLElement;
-        if (firstItem) moveBackdrop(firstItem);
+        //Inicializar en el primer item
+        window.addEventListener("load", () => {
+            const firstItem = items[0] as HTMLElement;
+            if (firstItem) moveBackdrop(firstItem);
+        });
     });
 </script>
