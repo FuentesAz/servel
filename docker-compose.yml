@@ -1,0 +1,16 @@
+services:
+  astro:
+    build: .
+    container_name: servel-site
+    restart: always
+    ports:
+      - "4321:4321"
+    env_file:
+      - .env
+    environment:
+      - HOST=0.0.0.0
+      - PORT=4321
+      - NODE_OPTIONS=--dns-result-order=ipv4first
+      - CONTACT_TO=${CONTACT_TO}
+      - RESEND_FROM=${RESEND_FROM}
+      - RESEND_API_KEY=${RESEND_API_KEY}

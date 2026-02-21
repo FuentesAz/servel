@@ -33,7 +33,12 @@ import { Image } from "astro:assets";
                     implementar la tecnología que tu proyecto necesita.
                 </p>
 
-                <form class="space-y-6" id="contact-form" method="POST" action="/api/send-email">
+                <form
+                    class="space-y-6"
+                    id="contact-form"
+                    method="POST"
+                    action="/api/send-email"
+                >
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="font-bold mb-2 block">Nombre</label>
@@ -104,6 +109,7 @@ import { Image } from "astro:assets";
                     <button
                         class="bg-red-800 text-white px-6 py-3 rounded-xl hover:bg-red-900 transition flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                         id="submit-btn"
+                        type="submit"
                     >
                         <svg
                             id="spinner"
@@ -194,51 +200,64 @@ import { Image } from "astro:assets";
     </div>
 </section>
 
-<script >
-    const form = document.getElementById("contact-form") as HTMLFormElement;
-    const msg = document.getElementById("response-msg") as HTMLParagraphElement;
-    const btn = document.getElementById("submit-btn") as HTMLButtonElement;
-    const spinner = document.getElementById("spinner") as HTMLElement;
-    const btnText = document.getElementById("btn-text") as HTMLParagraphElement;
+<script>
+    document.addEventListener("astro:page-load", () => {
+        const form = document.getElementById("contact-form") as HTMLFormElement;
 
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+        if (!form) return;
 
-        // Estado inicial de carga
-        btn.disabled = true;
-        btnText.innerText = "Enviando...";
-        spinner.classList.remove("hidden");
-        msg.classList.add("hidden");
+        const msg = document.getElementById(
+            "response-msg",
+        ) as HTMLParagraphElement;
+        const btn = document.getElementById("submit-btn") as HTMLButtonElement;
+        const spinner = document.getElementById("spinner") as HTMLElement;
+        const btnText = document.getElementById(
+            "btn-text",
+        ) as HTMLParagraphElement;
 
-        const formData = new FormData(form);
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-        try {
-            const response = await fetch("/api/send-email", {
-                method: "POST",
-                body: formData,
-            });
+            // Estado inicial de carga
+            btn.disabled = true;
+            btnText.innerText = "Enviando...";
+            spinner.classList.remove("hidden");
+            msg.classList.add("hidden");
 
-            const result = await response.json();
+            const formData = new FormData(form);
 
-            // Limpiamos colores previos de error/éxito
-            msg.classList.remove("hidden", "text-red-400", "text-green-400");
+            try {
+                const response = await fetch("/api/send-email", {
+                    method: "POST",
+                    body: formData,
+                });
 
-            if (response.ok) {
-                msg.innerText = "¡Mensaje enviado correctamente!";
-                msg.classList.add("text-green-400");
-                form.reset();
-            } else {
-                throw new Error(result.error || "Error en el servidor");
+                const result = await response.json();
+
+                // Limpiamos colores previos de error/éxito
+                msg.classList.remove(
+                    "hidden",
+                    "text-red-400",
+                    "text-green-400",
+                );
+
+                if (response.ok) {
+                    msg.innerText = "¡Mensaje enviado correctamente!";
+                    msg.classList.add("text-green-400");
+                    form.reset();
+                } else {
+                    throw new Error(result.error || "Error en el servidor");
+                }
+            } catch (error: any) {
+                msg.innerText = "Error al enviar el mensaje.";
+                msg.classList.add("text-red-400");
+                msg.classList.remove("hidden");
+            } finally {
+                btn.disabled = false;
+                btnText.innerText = "Enviar Mensaje";
+                spinner.classList.add("hidden"); // ¡No olvides ocultar el spinner!
+                msg.classList.remove("hidden");
             }
-        } catch (error: any) {
-            msg.innerText = "Error al enviar el mensaje.";
-            msg.classList.add("text-red-400");
-            msg.classList.remove("hidden");
-        } finally {
-            btn.disabled = false;
-            btnText.innerText = "Enviar Mensaje";
-            spinner.classList.add("hidden"); // ¡No olvides ocultar el spinner!
-            msg.classList.remove("hidden");
-        }
+        });
     });
 </script>
