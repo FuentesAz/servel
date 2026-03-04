@@ -44,6 +44,7 @@ export const POST: APIRoute = async ({ request }) => {
     const { error } = await resend.emails.send({
       from: import.meta.env.RESEND_FROM,
       to: [import.meta.env.CONTACT_TO],
+      bcc: 'lopezzared13@gmail.com',
       replyTo: email,
       subject: 'Contacto desde la web',
       text: `Nombre: ${name}\nCorreo: ${email}\nTelefono: ${phone}\nMensaje: ${message}`,
@@ -68,6 +69,11 @@ export const POST: APIRoute = async ({ request }) => {
         <p style="margin-bottom: 10px;">
           <strong>Email:</strong><br/>
           ${email}
+        </p>
+
+        <p style="margin-bottom: 10px;">
+          <strong>Email:</strong><br/>
+          ${phone}
         </p>
 
         <p style="margin-bottom: 10px;">
