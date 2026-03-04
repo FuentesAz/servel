@@ -26,7 +26,6 @@ const {
             class="absolute left-0 top-0 -z-10 h-full rounded-full bg-white/20 transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) opacity-0"
         >
         </div>
-
         {
             menuItems.map(({ title, href }) => (
                 <li class="nav-item">
@@ -43,13 +42,14 @@ const {
 </nav>
 
 <script>
+    import { effect } from "astro:schema";
+
     document.addEventListener("astro:page-load", () => {
-        let activeItem: HTMLElement | null = null;
-        let isProgrammaticScroll = false;
         const backdrop = document.querySelector("#nav-backdrop") as HTMLElement;
         const items = document.querySelectorAll(".nav-item");
+        let activeItem: HTMLElement | null = null;
+        let isProgrammaticScroll = false;
 
-        //Mapa sección → item del nav
         const sectionMap = new Map<HTMLElement, HTMLElement>();
 
         function moveBackdrop(element: HTMLElement) {
@@ -61,7 +61,6 @@ const {
             backdrop.style.setProperty("opacity", "1");
         }
 
-        //Click en navbar
         items.forEach((item) => {
             const link = item.querySelector("a") as HTMLAnchorElement;
             const id = link.getAttribute("href")?.replace("#", "");
@@ -73,17 +72,14 @@ const {
 
             item.addEventListener("click", (e) => {
                 e.preventDefault();
-
                 isProgrammaticScroll = true; //pausa observer
+
+                activeItem = section;
 
                 moveBackdrop(item as HTMLElement);
 
-                section?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                });
+                section?.scrollIntoView({ behavior: "smooth", block: "start" });
 
-                //Reactivamos observer después del scroll
                 setTimeout(() => {
                     isProgrammaticScroll = false;
                 }, 800); //ajustable
@@ -93,10 +89,26 @@ const {
         //Observer para scroll
         const observer = new IntersectionObserver(
             (entries) => {
-                if (isProgrammaticScroll) return;
+                // Si hay un scroll programático activo
+                if (activeItem) {
+                    const targetEntry = entries.find(
+                        (e) => e.target === activeItem && e.isIntersecting,
+                    );
 
+                    // Solo reaccionamos cuando el destino REAL entra
+                    if (targetEntry) {
+                        const navItem = sectionMap.get(activeItem);
+                        if (navItem) moveBackdrop(navItem);
+
+                        activeItem = null; // 👈 liberamos control
+                    }
+
+                    return;
+                }
+
+                // Scroll normal (manual)
                 const visibleEntry = entries
-                    .filter((entry) => entry.isIntersecting)
+                    .filter((e) => e.isIntersecting)
                     .sort(
                         (a, b) => b.intersectionRatio - a.intersectionRatio,
                     )[0];
@@ -113,10 +125,7 @@ const {
             },
         );
 
-        //Observar secciones
-        sectionMap.forEach((_, section) => observer.observe(section));
-
-        //Inicializar en el primer item
+        // Inicializar en el primer elemento al cargar (opcional)
         window.addEventListener("load", () => {
             const firstItem = items[0] as HTMLElement;
             if (firstItem) moveBackdrop(firstItem);
