@@ -9,7 +9,7 @@ import ClientRouter from "astro/components/ClientRouter.astro";
 		<!-- Google tag (gtag.js) -->
 		<script
 			async
-			src="https://www.googletagmanager.com/gtag/js?id=G-X9WVB5QDV8"
+			src="https://www.googletagmanager.com/gtag/js?id=G-S82R8HZ53S"
 		></script>
 
 		<script is:inline>
@@ -19,11 +19,11 @@ import ClientRouter from "astro/components/ClientRouter.astro";
 			}
 
 			gtag("js", new Date());
-			gtag("config", "G-X9WVB5QDV8");
+			gtag("config", "G-S82R8HZ53S");
 
 			// Escuchamos el evento de navegación de Astro
 			document.addEventListener("astro:page-load", () => {
-				gtag("config", "G-X9WVB5QDV8", {
+				gtag("config", "G-S82R8HZ53S", {
 					page_path: window.location.pathname,
 				});
 			});
