@@ -20,6 +20,7 @@ import ClientRouter from "astro/components/ClientRouter.astro";
 
 			gtag("js", new Date());
 
+			// Escuchamos el evento de navegación de Astro
 			document.addEventListener("astro:page-load", () => {
 				gtag("config", "G-X9WVB5QDV8", {
 					page_path: window.location.pathname,
