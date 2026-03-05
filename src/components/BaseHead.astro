@@ -14,25 +14,6 @@ interface Props {
 
 const { title, description }: Props = Astro.props;
 ---
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-X9WVB5QDV8"
-></script>
-
-<script is:inline>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-
-    gtag("js", new Date());
-
-    document.addEventListener("astro:page-load", () => {
-        gtag("config", "G-X9WVB5QDV8", {
-            page_path: window.location.pathname,
-        });
-    });
-</script>
 <meta charset="utf-8" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="canonical" href={canonicalURL} />
