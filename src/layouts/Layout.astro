@@ -6,16 +6,37 @@ import ClientRouter from "astro/components/ClientRouter.astro";
 
 <html lang="es">
 	<head>
+		<!-- Google tag (gtag.js) -->
+		<script
+			async
+			src="https://www.googletagmanager.com/gtag/js?id=G-L4XTHF0E4K"
+		></script>
+
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+
+			gtag("js", new Date());
+			gtag("config", "G-L4XTHF0E4K");
+
+			// Escuchamos el evento de navegación de Astro
+			document.addEventListener("astro:page-load", () => {
+				gtag("config", "G-L4XTHF0E4K", {
+					page_path: window.location.pathname,
+				});
+			});
+		</script>
 		<BaseHead
 			title="Servel Computadoras"
-			description="Servicios de reparación y componentes"
+			description="Nos dedicamos a la reparación de equipos de cómputo, impresoras, redes y más en Playa del Carmen"
 		/>
-		<ClientRouter/>
+		<ClientRouter />
 	</head>
 	<body>
 		<main class="max-w-[1650px] m-auto">
 			<slot />
 		</main>
-	</body>
-	<Footer />
+	</body><Footer />
 </html>
