@@ -9,68 +9,70 @@ import gigabyte from "../assets/logos/gigabyte.png";
 import ocelot from "../assets/logos/ocelot.png";
 
 const logos = [
-    {
-        src: acteck,
-        alt: "Acteck Logo",
-    },
-    {
-        src: asrock,
-        alt: "Asrock Logo",
-    },
-    {
-        src: intel,
-        alt: "Intel Logo",
-    },
-    {
-        src: kingston,
-        alt: "Kingston Logo",
-    },
-    {
-        src: amd,
-        alt: "AMD Logo",
-    },
-    {
-        src: gigabyte,
-        alt: "Gigabyte Logo",
-    },
-    {
-        src: ocelot,
-        alt: "Ocelot Logo",
-    },
-];
+    { src: acteck, alt: "acteck Logo" },
+    { src: asrock, alt: "Asrock Logo" },
+    { src: intel, alt: "Intel Logo" },
+    { src: kingston, alt: "Kingston Logo" },
+    { src: amd, alt: "AMD Logo" },
+    { src: gigabyte, alt: "Gigabyte Logo" },
+    { src: ocelot, alt: "Ocelot Logo" },
+    { src: kingston, alt: "Kingston Logo" },
 
+];
 ---
 
 <div class="relative w-full overflow-hidden py-15">
-    <div
-        class="pointer-events-none absolute left-0 top-0 h-full xl:w-150 w-20 bg-gradient-to-r from-white to-transparent z-10"
-    >
-    </div>
-    <div
-        class="pointer-events-none absolute right-0 top-0 h-full xl:w-150 w-20 bg-gradient-to-l from-white to-transparent z-10"
-    >
-    </div>
+    <div class="pointer-events-none absolute left-0 top-0 h-full xl:w-150 w-20 bg-gradient-to-r from-white to-transparent z-10"></div>
+    <div class="pointer-events-none absolute right-0 top-0 h-full xl:w-150 w-20 bg-gradient-to-l from-white to-transparent z-10"></div>
 
-    <!-- Track -->
-    <div class="flex items-center gap-8 xl:gap-16 xl:animate-[scroll_12s_linear_infinite]  animate-[scroll_8s_linear_infinite]">
-        {
-            [...logos, ...logos].map((logo) => (
-                <Image
-                    src={logo.src}
-                    alt={logo.alt}
-                    class="h-8 xl:w-auto w-30 object-contain transition xl:grayscale xl:hover:opacity-100 xl:hover:grayscale-0"
-                />
-            ))
-        }
+    <div class="carousel-track flex w-max items-center">
+        
+        <div class="flex items-center gap-8 xl:gap-16 pr-8 xl:pr-16">
+            {
+                logos.map((logo) => (
+                    <Image
+                        src={logo.src}
+                        alt={logo.alt}
+                        class="h-8 w-28 xl:h-10 xl:w-36 object-contain transition xl:grayscale xl:hover:opacity-100 xl:hover:grayscale-0"
+                    />
+                ))
+            }
+        </div>
+
+        <div class="flex items-center gap-8 xl:gap-16 pr-8 xl:pr-16" aria-hidden="true">
+            {
+                logos.map((logo) => (
+                    <Image
+                        src={logo.src}
+                        alt={logo.alt}
+                        class="h-8 w-28 xl:h-10 xl:w-36 object-contain transition xl:grayscale xl:hover:opacity-100 xl:hover:grayscale-0"
+                    />
+                ))
+            }
+        </div>
+        
     </div>
 </div>
 
 <style>
+    .carousel-track {
+        animation: scroll 18s linear infinite;
+    }
+
+    @media (max-width: 1279px) {
+        .carousel-track {
+            animation-duration: 10s;
+        }
+    }
+
     @keyframes scroll {
         from {
             transform: translateX(0);
         }
         to {
+            /* Mover al -50% asegura que el inicio del Grupo 2 
+               coincida exactamente con donde estaba el Grupo 1 al principio 
+            */
             transform: translateX(-50%);
         }
     }
