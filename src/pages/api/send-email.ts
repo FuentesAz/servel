@@ -40,6 +40,10 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(JSON.stringify({ success: false, error: 'Todos los campos son obligatorios' }), { status: 400 })
   }
 
+  if (!isValidEmail(email)) {
+    return new Response(JSON.stringify({ success: false, error: 'Correo electrónico no válido' }), { status: 400 })
+  }
+
   try {
     const { error } = await resend.emails.send({
       from: import.meta.env.RESEND_FROM,
@@ -72,7 +76,7 @@ export const POST: APIRoute = async ({ request }) => {
         </p>
 
         <p style="margin-bottom: 10px;">
-          <strong>Email:</strong><br/>
+          <strong>Teléfono:</strong><br/>
           ${phone}
         </p>
 
